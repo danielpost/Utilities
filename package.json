@@ -1,23 +1,30 @@
 {
-  "name": "@posty/utilities",
-  "version": "1.0.0",
-  "description": "Utilities for danielpost.com",
-  "main": "index.js",
-  "scripts": {
-    "start": "vercel dev",
-    "deploy": "vercel deploy --prod"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/danielpost/utilities.git"
-  },
-  "author": "Daniel Post",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/danielpost/utilities/issues"
-  },
-  "homepage": "https://github.com/danielpost/utilities#readme",
-  "devDependencies": {
-    "vercel": "^28.4.17"
-  }
+	"name": "@posty/utilities",
+	"version": "1.0.0",
+	"description": "Utilities for danielpost.com",
+	"exports": "./index.js",
+	"type": "module",
+	"scripts": {
+		"start": "vercel dev",
+		"deploy": "vercel deploy --prod"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/danielpost/utilities.git"
+	},
+	"author": "Daniel Post",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/danielpost/utilities/issues"
+	},
+	"homepage": "https://github.com/danielpost/utilities#readme",
+	"devDependencies": {
+		"@vercel/node": "^2.6.2",
+		"prettier": "2.7.1",
+		"vercel": "^28.4.17"
+	},
+	"dependencies": {
+		"@wooorm/starry-night": "^1.3.1",
+		"hast-util-to-html": "^8.0.3"
+	}
 }
