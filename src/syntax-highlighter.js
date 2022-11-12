@@ -6,6 +6,10 @@ export async function highlight(code, lang) {
 		return '';
 	}
 
+	if (lang === 'php' && !code.startsWith('<?php')) {
+		code = `<?php\n${code}`;
+	}
+
 	const starryNight = await createStarryNight(common);
 	const tree = starryNight.highlight(code, starryNight.flagToScope(lang));
 	return toHtml(tree);
