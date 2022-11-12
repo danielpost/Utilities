@@ -1,0 +1,23 @@
+{
+  "name": "@posty/utilities",
+  "version": "1.0.0",
+  "description": "Utilities for danielpost.com",
+  "main": "index.js",
+  "scripts": {
+    "start": "vercel dev",
+    "deploy": "vercel deploy --prod"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielpost/utilities.git"
+  },
+  "author": "Daniel Post",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danielpost/utilities/issues"
+  },
+  "homepage": "https://github.com/danielpost/utilities#readme",
+  "devDependencies": {
+    "vercel": "^28.4.17"
+  }
+}
