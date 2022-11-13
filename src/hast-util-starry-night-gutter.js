@@ -100,7 +100,7 @@ function createLine(children, line) {
 
 		const value = child.children[0].value;
 
-		if (!value.includes('[hl ')) {
+		if (!value || (!value.includes('[hl') && !value.includes('&#91;hl'))) {
 			return true;
 		}
 
