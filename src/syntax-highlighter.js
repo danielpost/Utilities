@@ -11,16 +11,6 @@ export async function highlight(code, lang) {
 		code = `<?php\n${code}`;
 	}
 
-	code = `function blur() {
-	const isBlurred = true;//[hl ++]
-	console.log(isBlurred);//[hl --]
-	console.log({ isBlurred });//[hl focus]
-}
-
-blur();`;
-
-	lang = 'js';
-
 	const starryNight = await createStarryNight(common);
 	const tree = starryNight.highlight(code, starryNight.flagToScope(lang));
 
