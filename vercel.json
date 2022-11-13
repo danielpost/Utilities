@@ -1,0 +1,7 @@
+{
+	"functions": {
+		"api/syntax-highlighter.js": {
+			"includeFiles": "node_modules/shiki/themes/**"
+		}
+	}
+}
