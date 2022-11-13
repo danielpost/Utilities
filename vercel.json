@@ -1,7 +1,7 @@
 {
 	"functions": {
 		"api/syntax-highlighter.js": {
-			"includeFiles": "node_modules/shiki/themes/**"
+			"includeFiles": "node_modules/vscode-oniguruma/release/onig.wasm"
 		}
 	}
 }
