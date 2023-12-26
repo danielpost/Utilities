@@ -7,6 +7,19 @@ export async function highlight(code, lang) {
 		return '';
 	}
 
+	const replacements = {
+		'&gt;': '>',
+		'&lt;': '<',
+		'&amp;': '&',
+		'#91;': '[',
+		'#93;': ']',
+	};
+
+	code = code.replace(
+		/&gt;|&lt;|&amp;|#91;|#93;/g,
+		(match) => replacements[match]
+	);
+
 	if (lang === 'php' && !code.startsWith('<?php')) {
 		code = `<?php\n${code}`;
 	}
