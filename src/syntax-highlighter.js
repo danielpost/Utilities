@@ -24,7 +24,7 @@ export async function highlight(code, lang) {
 	const tree = starryNight.highlight(code, starryNight.flagToScope(lang));
 
 	if (startsWithPhpTag) {
-		tree.children.shift();
+		tree = tree.children.slice(2);
 	}
 
 	starryNightGutter(tree);
