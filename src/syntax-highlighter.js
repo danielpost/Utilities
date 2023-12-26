@@ -13,12 +13,19 @@ export async function highlight(code, lang) {
 	code = code.replace(/&#91;/g, '[');
 	code = code.replace(/&#93;/g, ']');
 
+	let startsWithPhpTag = false;
+
 	if (lang === 'php' && !code.startsWith('<?php')) {
 		code = `<?php\n${code}`;
+		startsWithPhpTag = true;
 	}
 
 	const starryNight = await createStarryNight(common);
 	const tree = starryNight.highlight(code, starryNight.flagToScope(lang));
+
+	if (startsWithPhpTag) {
+		tree.children.shift();
+	}
 
 	starryNightGutter(tree);
 
