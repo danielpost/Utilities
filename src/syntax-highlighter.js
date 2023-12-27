@@ -1,4 +1,4 @@
-import { getHighlighter } from 'shiki';
+import { getHighlighter, loadTheme } from 'shiki';
 
 export async function highlight(code, lang) {
 	if (!code || !lang) {
@@ -11,8 +11,9 @@ export async function highlight(code, lang) {
 	code = code.replace(/&#91;/g, '[');
 	code = code.replace(/&#93;/g, ']');
 
+	const theme = loadTheme('../../assets/one-dark-pro.json');
 	const highlighter = await getHighlighter({
-		theme: 'one-dark-pro',
+		theme,
 	});
 
 	const focusLines = [];
