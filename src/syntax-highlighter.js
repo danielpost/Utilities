@@ -1,6 +1,4 @@
-import { toHtml } from 'hast-util-to-html';
-import { createStarryNight, common } from '@wooorm/starry-night';
-import { starryNightGutter } from './hast-util-starry-night-gutter.js';
+import { getHighlighter } from 'shiki';
 
 export async function highlight(code, lang) {
 	if (!code || !lang) {
@@ -13,21 +11,64 @@ export async function highlight(code, lang) {
 	code = code.replace(/&#91;/g, '[');
 	code = code.replace(/&#93;/g, ']');
 
-	let startsWithPhpTag = false;
+	const highlighter = await getHighlighter({
+		theme: 'one-dark-pro',
+	});
 
-	if (lang === 'php' && !code.startsWith('<?php')) {
-		code = `<?php\n${code}`;
-		startsWithPhpTag = true;
-	}
+	const focusLines = [];
+	const addLines = [];
+	const removeLines = [];
 
-	const starryNight = await createStarryNight(common);
-	const tree = starryNight.highlight(code, starryNight.flagToScope(lang));
+	const lines = code.split('\n').map((line, i) => {
+		if (!line.includes('[hl ')) {
+			return line;
+		}
 
-	if (startsWithPhpTag) {
-		tree.children = tree.children.slice(2);
-	}
+		const highlightProps = line.match(/\[hl (.*)\]/)[1];
 
-	starryNightGutter(tree);
+		if (highlightProps.includes('--')) {
+			removeLines.push(i);
+		}
 
-	return toHtml(tree);
+		if (highlightProps.includes('++')) {
+			addLines.push(i);
+		}
+
+		if (highlightProps.includes('focus')) {
+			focusLines.push(i);
+		}
+
+		return line.replace(/\[hl (.*)\]/, '').trimEnd();
+	});
+
+	let html = highlighter.codeToHtml(lines.join('\n'), lang);
+
+	html = html.split('\n').map((line, i) => {
+		if (focusLines.includes(i)) {
+			line = line.replace(
+				'<span class="line',
+				'<span class="line posty-line--focus'
+			);
+		}
+
+		if (addLines.includes(i)) {
+			line = line.replace(
+				'<span class="line',
+				'<span class="line posty-line--add'
+			);
+		}
+
+		if (removeLines.includes(i)) {
+			line = line.replace(
+				'<span class="line',
+				'<span class="line posty-line--remove'
+			);
+		}
+
+		return line;
+	});
+
+	console.log(html);
+
+	return html.join('\n');
 }
